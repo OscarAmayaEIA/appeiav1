@@ -4,16 +4,16 @@ import { StyleSheet, Text, View , Pressable} from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {NavigationContext} from "@react-navigation/native";
+import Navegation_menu from '../Components/nav_menu';
 
 export default function Home() {
     const navigation = useContext(NavigationContext);
   return (
     <View style={styles.container}>
-        <Pressable onPress={()=>{navigation.navigate('Locations')}}>
-            <Text>Locations</Text> 
-        </Pressable>
+        <Navegation_menu/>
+        
         <Text>HOME</Text>
-        <StatusBar style="auto" />
+        
     </View>
   );
 }
