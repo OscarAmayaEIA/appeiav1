@@ -1,10 +1,9 @@
 import React, {useContext} from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View , Pressable} from 'react-native';
-import { NavigationContainer } from "@react-navigation/native";
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import {NavigationContext} from "@react-navigation/native";
 
 export default function Navegation_menu() {
@@ -16,6 +15,12 @@ export default function Navegation_menu() {
         </Pressable>
         <Pressable onPress={()=>{navigation.navigate('Home')}}>
             <FontAwesome name='home' size={24} color="white" />
+        </Pressable>
+        <Pressable onPress={()=>{navigation.navigate('Devices')}}>
+            <MaterialCommunityIcons name="motion-sensor" size={24} color="white" />
+        </Pressable>
+        <Pressable onPress={()=>{navigation.navigate('Music')}}>
+            <MaterialIcons name="library-music" size={24} color="white" />
         </Pressable>
         
     </View>
