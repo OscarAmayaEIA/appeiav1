@@ -6,6 +6,9 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {NavigationContext} from "@react-navigation/native";
 import Navegation_menu from '../Components/nav_menu';
 import Card from '../Components/Card';
+import { LineChart } from 'react-native-chart-kit';
+
+
 
 const mqtt=require('@taoqf/react-native-mqtt')
 var options = { protocolo: 'mqtts', 
@@ -18,6 +21,8 @@ var options = { protocolo: 'mqtts',
 export default function Home() {
     const navigation = useContext(NavigationContext);
     const [temp, setTemp] = useState(0)
+    const [datax, setDatax] = useState([0]);
+    const [datay, setDatay] = useState([0]);
 
     useEffect(() => {
 
@@ -27,6 +32,9 @@ export default function Home() {
         client.subscribe("Edfico1/salon32B/Ventana1/lumens");
         client.on("message", function (topic, message) {
             cont++;
+            setDatax((datax)=>[...datax, cont]);
+            setDatay((datay)=>[...datay, parseFloat(message.toString())]);
+
             const dot = {
             id: cont,
             value: parseFloat(message.toString())
@@ -41,7 +49,40 @@ export default function Home() {
     <View style={styles.container}>
         <Navegation_menu/>
         <Card value={temp}/>
-        
+        <LineChart
+    data={{
+      labels: datax.slice(-20),
+      datasets: [
+        { data: datay.slice(-20)},
+                ],
+          }}
+    width={300} // from react-native
+    height={220}
+    // yAxisLabel="$"
+    // yAxisSuffix="k"
+    yAxisInterval={1} // optional, defaults to 1
+    chartConfig={{
+      backgroundColor: "#e26a00",
+      backgroundGradientFrom: "#fb8c00",
+      backgroundGradientTo: "#ffa726",
+      decimalPlaces: 2, // optional, defaults to 2dp
+      color: (opacity = 1) => 'red',
+      labelColor: (opacity = 1) => 'black',
+      style: {
+        borderRadius: 16
+      },
+      propsForDots: {
+        r: "6",
+        strokeWidth: "2",
+        stroke: "#ffa726"
+      }
+    }}
+    bezier
+    style={{
+      marginVertical: 8,
+      borderRadius: 16
+    }}
+  />
     </View>
   );
 }
