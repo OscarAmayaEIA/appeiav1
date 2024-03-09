@@ -34,7 +34,6 @@ export default function Home() {
             cont++;
             setDatax((datax)=>[...datax, cont]);
             setDatay((datay)=>[...datay, parseFloat(message.toString())]);
-
             const dot = {
             id: cont,
             value: parseFloat(message.toString())
@@ -62,11 +61,11 @@ export default function Home() {
     // yAxisSuffix="k"
     yAxisInterval={1} // optional, defaults to 1
     chartConfig={{
-      backgroundColor: "#e26a00",
-      backgroundGradientFrom: "#fb8c00",
-      backgroundGradientTo: "#ffa726",
+      backgroundColor: "clay",
+      backgroundGradientFrom: "white",
+      backgroundGradientTo: "gray",
       decimalPlaces: 2, // optional, defaults to 2dp
-      color: (opacity = 1) => 'red',
+      color: (opacity = 1) => 'black',
       labelColor: (opacity = 1) => 'black',
       style: {
         borderRadius: 16
@@ -80,7 +79,8 @@ export default function Home() {
     bezier
     style={{
       marginVertical: 8,
-      borderRadius: 16
+      borderRadius: 16,
+      padding : 20
     }}
   />
     </View>
