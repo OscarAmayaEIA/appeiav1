@@ -12,7 +12,7 @@ export default function Devices() {
     <View style={styles.container}>
         <Navegation_menu/>
       <Text>Devices</Text>
-      <Smart_buttom value="25"/>
+      <Smart_buttom topic={"Controlluz"}/>
     </View>
   );
 }
