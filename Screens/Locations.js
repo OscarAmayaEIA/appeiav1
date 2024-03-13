@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Navegation_menu from '../Components/nav_menu';
 import React, { useState,useEffect } from 'react';
-import MapView,{Marker} from 'react-native-maps';
+import MapView,{Marker, Polyline} from 'react-native-maps';
 
 
 
@@ -23,6 +23,7 @@ export default function Locations() {
     longitudeDelta: 0.0421,
   });
   const [Mapready, setMapready] = useState(false);
+  const [dataarray, setDataarray] = useState([marker]);
   var options = { protocolo: 'mqtts', 
                 clientID: "frontend_1",
                 username: 'ejemplo-control', 
@@ -37,15 +38,17 @@ export default function Locations() {
     var lat;
     var lon;
     client.on("message", function (topic, message) {
-        message = message.toString();
-        lat = message.split(":")[0];
-        lon = message.split(":")[1];
-        setmarker({
+
+        lat = message.toString().split(":")[0];
+        lon = message.toString().split(":")[1];
+        setmarker({ 
+
           latitude:   parseFloat(lat),
           longitude:  parseFloat(lon),
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         });
+        setDataarray((dataarray)=>[...dataarray, {latitude: parseFloat(lat), longitude: parseFloat(lon)}]);
     });
 
 }, []);
@@ -57,6 +60,7 @@ export default function Locations() {
         <Text>Locations</Text>
 
       <MapView  style={styles.map} region={Region} onMapReady={() => setMapready(true)} >
+        <Polyline coordinates={dataarray} strokeWidth={2} strokeColor="red"/>
         <Marker coordinate={marker} title={"EIA"}  />
       </MapView>
     </View>
