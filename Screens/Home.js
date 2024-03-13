@@ -29,7 +29,7 @@ export default function Home() {
         var client = mqtt.connect('mqtts://ejemplo-control.cloud.shiftr.io', options);
         var cont = 0;
         
-        client.subscribe("Edfico1/salon32B/Ventana1/lumens");
+        client.subscribe("/sensor");
         client.on("message", function (topic, message) {
             cont++;
             setDatax((datax)=>[...datax, cont]);
